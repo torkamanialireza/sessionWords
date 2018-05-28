@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Session Words</title>
+    <style media="screen">
+      fieldset{
+        width:45%;
+        display: inline-block;
+        vertical-align: top;
+      }
+      .red {
+        color:red;
+      }
+      .blue {
+        color:blue;
+      }
+      .green {
+        color:green;
+      }
+      .big {
+        font-size: 40px;
+      }
+      .small {
+        font-size:20px;
+      }
+      .btn {
+        padding: 20px;
+        background-color: blue;
+        color:white;
+      }
+    </style>
+  </head>
+  <body>
+    <fieldset>
+    <form  action="/new" method="post">
+      {% csrf_token %}
+      <h2>Add a new word:</h2>
+      <p>
+        <input type="text" name="word" />
+      </p>
+      <p>
+        Choose color:
+      </p>
+      <p>
+        <input type="radio" name="color" value="red"> Red
+      </p>
+      <p>
+        <input type="radio" name="color" value="green"> Green
+      </p>
+      <p>
+        <input type="radio" name="color" value="blue"> Blue
+      </p>
+      <p>
+        <input type="checkbox" name="font" value="font">Show in BIG fonts:
+      </p>
+      <input type="submit" value="Add to Session" class="btn">
+    </form>
+    </fieldset>
+    <fieldset>
+      {% for word in request.session.words %}
+      <p>
+        <a class="{{word.color}} {{word.font}}">{{word.word}}</a> added on  {{word.time}}
+      </p>
+      {% endfor %}
+    </fieldset>
+  </body>
+</html>
